@@ -22,17 +22,22 @@ public class Play {
         Card card = new Card(null, null);
         Player player = new Player(null);
         Play play = new Play(deck, null, null, null);
+
+        play.deal();
         play.run();
     }
-
-    public boolean run (){
+    
+    public void deal (){
         deck.assembleDeck();
         deck.shuffleDeck();
         deck.dealCards();
         deck.printHands();
+    }
+
+    public boolean run (){
         System.out.println("stick or twist?");
         String input = sc.nextLine();
-        while (input == "twist") {
+        if (input.equals("twist")) {
             deck.playerDrawACard();
             run();
         }
