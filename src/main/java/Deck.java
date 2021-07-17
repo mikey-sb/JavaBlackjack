@@ -13,7 +13,6 @@ public class Deck {
     private Player dealer;
 
 
-
     public Deck(ArrayList<Card> cards) {
         this.cards = cards;
         this.suitList = new ArrayList<String>();
@@ -51,7 +50,6 @@ public class Deck {
         return firstCard.getSuit();
     }
 
-
     public void assembleDeck () {
         for (CardValue value : CardValue.values()) {
             for (String suit : this.suitList) {
@@ -66,8 +64,6 @@ public class Deck {
     }
 
     public void dealCards() {
-
-
 
         this.playerCards.add(this.cards.remove(0));
         this.playerCards.add(this.cards.remove(0));
@@ -104,25 +100,27 @@ public class Deck {
         return this.player.hand;
     }
 
-    public int getPlayerTotal(){
+    public void getPlayerTotal(){
         int playerTotal = 0;
         for(int i = 0; i < getPlayerHand().size(); i++){
             playerTotal += this.player.hand.get(i).getValue();
         }
         player.setTotal(playerTotal);
-        return playerTotal;
     };
 
-    public int getDealerTotal(){
+    public void getDealerTotal(){
         int dealerTotal = 0;
         for(int i = 0; i < getDealerHand().size(); i++){
             dealerTotal += this.dealer.hand.get(i).getValue();
         }
         dealer.setTotal(dealerTotal);
-        return dealerTotal;
     };
 
     public boolean compareHands(){
+
+        getPlayerTotal();
+        getDealerTotal();
+
         int playerTotal = player.getTotal();
         int dealerTotal = dealer.getTotal();
 

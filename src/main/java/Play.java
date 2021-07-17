@@ -19,8 +19,6 @@ public class Play {
 
     public static void main(String[] args){
         Deck deck = new Deck(null);
-        Card card = new Card(null, null);
-        Player player = new Player(null);
         Play play = new Play(deck, null, null, null);
 
         play.deal();
