@@ -3,9 +3,19 @@ import java.util.ArrayList;
 public class Player {
     public Deck deck;
     public ArrayList<Card> hand;
+    public int total;
 
-    public Player(ArrayList<Card> hand) {
+    public Player(ArrayList<Card> hand, int total) {
         this.hand = new ArrayList<>();
+        this.total = total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getTotal() {
+        return total;
     }
 
     public void setHand(ArrayList<Card> cards) {

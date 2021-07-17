@@ -19,8 +19,8 @@ public class Deck {
         this.suitList = new ArrayList<String>();
         this.playerCards = new ArrayList<>();
         this.dealerCards = new ArrayList<>();
-        this.player = new Player(null);
-        this.dealer = new Player(null);
+        this.player = new Player(null, 0);
+        this.dealer = new Player(null, 0);
         this.suitList.add("spades");
         this.suitList.add("diamonds");
         this.suitList.add("clubs");
@@ -104,18 +104,27 @@ public class Deck {
         return this.player.hand;
     }
 
-    public boolean compareHands(){
+    public int getPlayerTotal(){
         int playerTotal = 0;
-        int dealerTotal = 0;
         for(int i = 0; i < getPlayerHand().size(); i++){
             playerTotal += this.player.hand.get(i).getValue();
         }
+        player.setTotal(playerTotal);
+        return playerTotal;
+    };
+
+    public int getDealerTotal(){
+        int dealerTotal = 0;
         for(int i = 0; i < getDealerHand().size(); i++){
             dealerTotal += this.dealer.hand.get(i).getValue();
         }
+        dealer.setTotal(dealerTotal);
+        return dealerTotal;
+    };
 
-        System.out.println(playerTotal);
-        System.out.println(dealerTotal);
+    public boolean compareHands(){
+        int playerTotal = player.getTotal();
+        int dealerTotal = dealer.getTotal();
 
         if(playerTotal > dealerTotal)
         { return true; }
@@ -133,8 +142,4 @@ public class Deck {
         this.playerCards.add(card);
         this.player.setHand(this.playerCards);
     }
-
-
-
-
 }
