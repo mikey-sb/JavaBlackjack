@@ -64,10 +64,12 @@ public class DeckTests {
         deck.shuffleDeck();
         deck.dealCards();
 
-        deck.printHands();
+
 
         assertEquals(true, deck.compareHands());
     }
+
+
 
 
 }

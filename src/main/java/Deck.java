@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Deck {
     private ArrayList<Card> cards;
+    private ArrayList<Card> playerCards;
+    private ArrayList<Card> dealerCards;
     private Card newCard;
     private ArrayList<String> suitList;
     private CardValue cardValue;
@@ -10,9 +13,12 @@ public class Deck {
     private Player dealer;
 
 
+
     public Deck(ArrayList<Card> cards) {
         this.cards = cards;
         this.suitList = new ArrayList<String>();
+        this.playerCards = new ArrayList<>();
+        this.dealerCards = new ArrayList<>();
         this.player = new Player(null);
         this.dealer = new Player(null);
         this.suitList.add("spades");
@@ -47,7 +53,7 @@ public class Deck {
 
 
     public void assembleDeck () {
-        for (CardValue value : this.cardValue.values()) {
+        for (CardValue value : CardValue.values()) {
             for (String suit : this.suitList) {
                 this.newCard = new Card(value, suit);
                 this.cards.add(this.newCard);
@@ -60,17 +66,21 @@ public class Deck {
     }
 
     public void dealCards() {
-        Card card1 = this.cards.remove(0);
-        Card card2 = this.cards.remove(0);
-        Card card3 = this.cards.remove(0);
-        Card card4 = this.cards.remove(0);
-
-        this.player.setHand(card1, card2);
-        this.dealer.setHand(card3, card4);
-
-        // HANDOUTS
 
 
+
+        this.playerCards.add(this.cards.remove(0));
+        this.playerCards.add(this.cards.remove(0));
+
+        this.dealerCards.add(this.cards.remove(0));
+        this.dealerCards.add(this.cards.remove(0));
+
+        this.player.setHand(this.playerCards);
+        this.dealer.setHand(this.dealerCards);
+    }
+
+    public void twist(){
+        this.playerCards.add(this.cards.remove(0));
     }
 
     public void printHands(){
@@ -113,4 +123,18 @@ public class Deck {
         { return false; }
 
     }
+
+    public void setPlayerCards(ArrayList<Card> playerCards) {
+        this.playerCards = playerCards;
+    }
+
+    public void playerDrawACard(){
+        Card card = this.cards.remove(0);
+        this.playerCards.add(card);
+        this.player.setHand(this.playerCards);
+    }
+
+
+
+
 }

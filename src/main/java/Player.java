@@ -8,9 +8,10 @@ public class Player {
         this.hand = new ArrayList<>();
     }
 
-    public void setHand(Card card1, Card card2) {
-        this.hand.add(card1);
-        this.hand.add(card2);
+    public void setHand(ArrayList<Card> cards) {
+        for(int i = 0; i < cards.size(); i++){
+            this.hand.add(cards.get(i));
+        }
     }
 
     public ArrayList<Card> getHand() {
