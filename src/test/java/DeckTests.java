@@ -9,6 +9,7 @@ import static org.junit.Assert.assertNotEquals;
 public class DeckTests {
 
     Deck deck;
+    Player player;
 
 
     @Before
@@ -17,6 +18,7 @@ public class DeckTests {
         ArrayList<Card> hand = new ArrayList<>();
 
         deck = new Deck(cards);
+        player = new Player(null, 0);
 
     }
 
@@ -59,15 +61,45 @@ public class DeckTests {
     }
 
     @Test
-    public void handsCanBeCompared(){
+    public void playerCanDrawCard() {
         deck.assembleDeck();
         deck.shuffleDeck();
         deck.dealCards();
-
-        assertEquals(true, deck.compareHands());
+        deck.playerDrawACard();
+        assertEquals(3, deck.getPlayerHand().size());
     }
 
+    @Test
+    public void playerCanDrawTwoCards() {
+        deck.assembleDeck();
+        deck.shuffleDeck();
+        deck.dealCards();
+        deck.playerDrawACard();
+        deck.playerDrawACard();
+        assertEquals(4, deck.getPlayerHand().size());
+    }
 
+    @Test
+    public void dealerCanDrawACard(){
+        deck.assembleDeck();
+        deck.shuffleDeck();
+        deck.dealCards();
+        deck.dealerDrawACard();
+        assertEquals(3, deck.getDealerHand().size());
+    }
 
+    @Test
+    public void play(){
+        deck.deal();
+        deck.runPlayer();
+        deck.runDealer();
+        deck.printHands();
+        deck.compareHands();
+    }
 
 }
+
+
+
+
+

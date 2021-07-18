@@ -34,10 +34,12 @@ public class Play {
 
     public boolean run (){
         System.out.println("stick or twist?");
-        String input = sc.nextLine();
-        if (input.equals("twist")) {
+        boolean choice = false;
+        if (player.getTotal() < 16){
+            choice = true;
+        if (choice) {
             deck.playerDrawACard();
-            run();
+            run();}
         }
         return true;
     }

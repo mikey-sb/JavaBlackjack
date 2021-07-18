@@ -50,7 +50,7 @@ public class Deck {
         return firstCard.getSuit();
     }
 
-    public void assembleDeck () {
+    public void assembleDeck() {
         for (CardValue value : CardValue.values()) {
             for (String suit : this.suitList) {
                 this.newCard = new Card(value, suit);
@@ -75,48 +75,56 @@ public class Deck {
         this.dealer.setHand(this.dealerCards);
     }
 
-    public void twist(){
+    public void twist() {
         this.playerCards.add(this.cards.remove(0));
+
+        this.player.setHand(this.playerCards);
     }
 
-    public void printHands(){
+    public void printHands() {
         System.out.println("PLAYER HAND");
-        System.out.println(this.player.hand.get(0).getValue());
-        System.out.println(this.player.hand.get(0).getSuit());
-        System.out.println(this.player.hand.get(1).getValue());
-        System.out.println(this.player.hand.get(1).getSuit());
+        for (int i = 0; i < player.getHandLength(); i++) {
+            System.out.println(this.player.hand.get(i).getValue());
+            System.out.println(this.player.hand.get(i).getSuit());
+        }
 
         System.out.println("DEALER HAND");
-        System.out.println(this.dealer.hand.get(0).getValue());
-        System.out.println(this.dealer.hand.get(0).getSuit());
-        System.out.println(this.dealer.hand.get(1).getValue());
-        System.out.println(this.dealer.hand.get(1).getSuit());
+        for (int i = 0; i < dealer.getHandLength(); i++) {
+            System.out.println(this.dealer.hand.get(i).getValue());
+            System.out.println(this.dealer.hand.get(i).getSuit());
+        }
     }
 
-    public ArrayList<Card> getPlayerHand(){
-        return this.player.hand;
-    }
-    public ArrayList<Card> getDealerHand(){
+    public ArrayList<Card> getPlayerHand() {
         return this.player.hand;
     }
 
-    public void getPlayerTotal(){
+    public ArrayList<Card> getDealerHand() {
+        return this.dealer.hand;
+    }
+
+    public int getPlayerTotal() {
         int playerTotal = 0;
-        for(int i = 0; i < getPlayerHand().size(); i++){
+        for (int i = 0; i < getPlayerHand().size(); i++) {
             playerTotal += this.player.hand.get(i).getValue();
         }
         player.setTotal(playerTotal);
-    };
+        return playerTotal;
+    }
 
-    public void getDealerTotal(){
+    ;
+
+    public int getDealerTotal() {
         int dealerTotal = 0;
-        for(int i = 0; i < getDealerHand().size(); i++){
+        for (int i = 0; i < getDealerHand().size(); i++) {
             dealerTotal += this.dealer.hand.get(i).getValue();
         }
         dealer.setTotal(dealerTotal);
-    };
+        return dealerTotal;
+    }
 
-    public boolean compareHands(){
+    ;
+    public void getHandStatus(){
 
         getPlayerTotal();
         getDealerTotal();
@@ -124,10 +132,39 @@ public class Deck {
         int playerTotal = player.getTotal();
         int dealerTotal = dealer.getTotal();
 
-        if(playerTotal > dealerTotal)
-        { return true; }
-        else
-        { return false; }
+        if (playerTotal > 21) {
+            System.out.println("PLAYER IS BUST!!");
+        } else if (playerTotal == 21) {
+            System.out.println("PLAYER GETS BLACKJACK!!");
+        }
+
+        if (dealerTotal > 21) {
+            System.out.println("DEALER IS BUST!!");
+        } else if (dealerTotal == 21) {
+            System.out.println("DEALER GETS BLACKJACK!!");
+        }
+
+    }
+    public void compareHands() {
+
+        getPlayerTotal();
+        getDealerTotal();
+
+        int playerTotal = player.getTotal();
+        int dealerTotal = dealer.getTotal();
+
+        getHandStatus();
+
+
+        if (playerTotal > dealerTotal && playerTotal <= 21) {
+            System.out.println("PLAYER is the winner!!");
+        } else if (playerTotal == dealerTotal && playerTotal <= 21) {
+            System.out.println("TIE GAME");
+        } else if (dealerTotal > playerTotal && dealerTotal <= 21) {
+            System.out.println("DEALER is the winner!!");
+        } else if (dealerTotal > 21 && playerTotal > 21) {
+            System.out.println("DOUBLE BUST!!");
+        }
 
     }
 
@@ -135,9 +172,67 @@ public class Deck {
         this.playerCards = playerCards;
     }
 
-    public void playerDrawACard(){
+    public void playerDrawACard() {
         Card card = this.cards.remove(0);
+
+        ArrayList<Card> newCard = new ArrayList<Card>();
+
+        newCard.add(card);
+
         this.playerCards.add(card);
-        this.player.setHand(this.playerCards);
+        this.player.setHand(newCard);
+
+    }
+
+    public void dealerDrawACard() {
+        Card card = this.cards.remove(0);
+
+        ArrayList<Card> newCard = new ArrayList<Card>();
+
+        newCard.add(card);
+
+        this.dealerCards.add(card);
+        this.dealer.setHand(newCard);
+    }
+
+    public void deal() {
+        assembleDeck();
+        shuffleDeck();
+        dealCards();
+
+    }
+
+    public void runPlayer() {
+
+        while (getPlayerTotal() < 16) {
+            playerDrawACard();
+//            printHands();
+        }
+
+    }
+
+    public void runDealer() {
+
+        while (getDealerTotal() < 16) {
+            dealerDrawACard();
+        }
     }
 }
+
+
+
+//        printHands();
+
+//        if (getDealerHand().size() < 16){
+//                dealerDrawACard();
+//                run();
+//            }
+//
+//
+//        if (compareHands()){
+//            System.out.println("Player is the winner!");
+//        } else {
+//            System.out.println("Dealer is the winner!");
+//        };
+
+
