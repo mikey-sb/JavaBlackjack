@@ -16,31 +16,14 @@ public class Play {
         this.card = card;
     }
 
-
     public static void main(String[] args){
-        Deck deck = new Deck(null);
-        Play play = new Play(deck, null, null, null);
+        ArrayList<Card> cards = new ArrayList<>();
+        Deck deck = new Deck(cards);
 
-        play.deal();
-        play.run();
-    }
-    
-    public void deal (){
-        deck.assembleDeck();
-        deck.shuffleDeck();
-        deck.dealCards();
+        deck.deal();
+        deck.runPlayer();
+        deck.runDealer();
         deck.printHands();
-    }
-
-    public boolean run (){
-        System.out.println("stick or twist?");
-        boolean choice = false;
-        if (player.getTotal() < 16){
-            choice = true;
-        if (choice) {
-            deck.playerDrawACard();
-            run();}
-        }
-        return true;
+        deck.compareHands();
     }
 }

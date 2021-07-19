@@ -168,10 +168,6 @@ public class Deck {
 
     }
 
-    public void setPlayerCards(ArrayList<Card> playerCards) {
-        this.playerCards = playerCards;
-    }
-
     public void playerDrawACard() {
         Card card = this.cards.remove(0);
 
@@ -199,7 +195,6 @@ public class Deck {
         assembleDeck();
         shuffleDeck();
         dealCards();
-
     }
 
     public void runPlayer() {
